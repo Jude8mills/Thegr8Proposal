@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Be Mine?</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body { background:#ffeef8; overflow:hidden; height:100vh; display:flex; align-items:center; justify-content:center; }
+    .page { position:absolute; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; transition:transform .6s ease-in-out; }
+    .hidden { transform:translateX(100%); }
+    .visible { transform:translateX(0); }
+    h1 { font-size:2.5rem; color:#ff6b9d; margin-bottom:1rem; }
+    p { font-size:1.2rem; color:#444; max-width:600px; line-height:1.6; }
+    button { margin-top:2rem; padding:1rem 2rem; font-size:1.1rem; background:#ff6b9d; color:white; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px 15px rgba(255,107,157,.3); transition:.3s; }
+    button:hover { transform:scale(1.05); }
+    .heart { font-size:3rem; animation:pulse 1.5s infinite; margin:1rem 0; }
+    @keyframes pulse { 0%,100% {transform:scale(1);} 50% {transform:scale(1.2);} }
+    .quiz { margin:2rem 0; }
+    .quiz button { margin:0.5rem; background:#c3b1e1; }
+    .quiz button.correct { background:#a0e7a0; }
+    #finalYes { background:#a0e7a0; }
+    #finalNo { background:#ff9999; }
+    .confetti { position:absolute; width:10px; height:10px; background:#ff6b9d; animation:fall 3s linear infinite; }
+    @keyframes fall { to { transform:translateY(100vh) rotate(360deg); opacity:0; } }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Intro -->
+  <div id="page1" class="page visible">
+    <div class="heart">💖</div>
+    <h1>Hey [Her Name]!</h1>
+    <p>I made this little site because words on a screen feel safer than saying them out loud...</p>
+    <button onclick="nextPage(1)">Turn the page →</button>
+  </div>
+
+  <!-- Page 2: Story -->
+  <div id="page2" class="page hidden">
+    <h1>Remember when...</h1>
+    <p>We laughed until [funny shared memory]? Or when you [cute thing she did]? Every moment with you feels like magic.</p>
+    <button onclick="nextPage(2)">Keep going →</button>
+  </div>
+
+  <!-- Page 3: Quiz -->
+  <div id="page3" class="page hidden">
+    <h1>Quick Quiz!</h1>
+    <p>What's my favorite thing about you?</p>
+    <div class="quiz">
+      <button onclick="wrong()">Your coding skills</button>
+      <button onclick="wrong()">Your memes</button>
+      <button onclick="correct()">Everything 💕</button>
+    </div>
+    <p id="quizResult" style="margin-top:1rem; min-height:1.5rem;"></p>
+    <button id="quizNext" style="display:none;" onclick="nextPage(3)">Next →</button>
+  </div>
+
+  <!-- Page 4: Question -->
+  <div id="page4" class="page hidden">
+    <div class="heart">💘</div>
+    <h1>So... [Her Name],</h1>
+    <p>Will you make my heart officially yours?</p>
+    <button id="finalYes" onclick="sayYes()">YES! 🥰</button>
+    <button id="finalNo" onclick="sayNo()">no way 😜</button>
+  </div>
+
+  <!-- Page 5: Yes Reveal -->
+  <div id="page5" class="page hidden">
+    <h1>YAY!!! 🎉</h1>
+    <p>I promise late-night talks, ugly selfies, and all the hugs. Can't wait for our first official date. Text me “🍓” when you see this.</p>
+    <div id="confettiContainer"></div>
+  </div>
+
+  <!-- Page 6: No (Secret Yes) -->
+  <div id="page6" class="page hidden">
+    <h1>Wait... try again 😉</h1>
+    <p>The only right answer is hidden in your heart.</p>
+    <button onclick="document.getElementById('page4').classList.replace('hidden','visible'); document.getElementById('page6').classList.replace('visible','hidden');">Go back</button>
+  </div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  function nextPage(n) {
+    pages[n].classList.replace('visible','hidden');
+    pages[n+1].classList.replace('hidden','visible');
+  }
+  function correct() {
+    document.getElementById('quizResult').innerHTML = '🎯 Exactly! <br>You know me too well.';
+    document.getElementById('quizNext').style.display = 'block';
+    setTimeout(() => nextPage(3), 2000);
+  }
+  function wrong() {
+    document.getElementById('quizResult').textContent = 'Nice try, but nope! 😋';
+  }
+  function sayYes() {
+    nextPage(4);
+    setTimeout(createConfetti, 500);
+  }
+  function sayNo() {
+    nextPage(5); // jumps to secret page6
+  }
+  function createConfetti() {
+    const container = document.getElementById('confettiContainer');
+    for(let i=0; i<100; i++){
+      const c = document.createElement('div');
+      c.classList.add('confetti');
+      c.style.left = Math.random()*100 + 'vw';
+      c.style.background = ['#ff6b9d','#a0e7a0','#c3b1e1'][Math.floor(Math.random()*3)];
+      c.style.animationDelay = Math.random()*3 + 's';
+      container.appendChild(c);
+    }
+  }
+</script>
+
+</body>
+</html>
