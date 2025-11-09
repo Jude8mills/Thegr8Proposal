@@ -3,48 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> I'm asking </title>
+  <title>I'm asking</title>
   <style>
+    /* FONTS FIRST */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap');
+
+    /* FLOAT ANIMATION */
     @keyframes float {
-  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
-  25% { transform: translateY(-15px) translateX(10px) rotate(2deg); }
-  50% { transform: translateY(-5px) translateX(-8px) rotate(-2deg); }
-  75% { transform: translateY(-20px) translateX(5px) rotate(1deg); }
-}
-   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap');
+      0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      25% { transform: translateY(-15px) translateX(10px) rotate(2deg); }
+      50% { transform: translateY(-5px) translateX(-8px) rotate(-2deg); }
+      75% { transform: translateY(-20px) translateX(5px) rotate(1deg); }
+    }
+
+    /* SPARKLE ANIMATION */
+    @keyframes sparklePop {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.5) translateY(-30px); opacity: 0; }
+    }
+
+    /* RESET & BODY */
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
     body { background:#ffeef8; height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    
-    /* ---- PAGE CONTAINER ---- */
+
+    /* PAGE CONTAINER */
     .page {
       position:absolute; inset:0;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       text-align:center; padding:2rem;
       transition:transform .6s ease-in-out;
-      transform:translateX(100%);          /* start off-screen */
+      transform:translateX(100%);
     }
-    .page.visible { transform:translateX(0); }   /* slide in */
-    .page.hidden  { display:none; }               /* completely gone */
+    .page.visible { transform:translateX(0); }
+    .page.hidden { display:none; }
 
+    /* TYPOGRAPHY */
     h1 { font-size:2.5rem; color:#ff6b9d; margin-bottom:1rem; }
     p { font-size:1.2rem; color:#444; max-width:600px; line-height:1.6; }
-    button { margin-top:2rem; padding:1rem 2rem; font-size:1.1rem; background:#ff6b9d; color:white; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px 15px rgba(255,107,157,.3); transition:.3s; }
+
+    /* BUTTONS */
+    button {
+      margin-top:2rem; padding:1rem 2rem; font-size:1.1rem;
+      background:#ff6b9d; color:white; border:none; border-radius:50px;
+      cursor:pointer; box-shadow:0 4px 15px rgba(255,107,157,.3); transition:.3s;
+    }
     button:hover { transform:scale(1.05); }
+
+    /* HEART PULSE */
     .heart { font-size:3rem; animation:pulse 1.5s infinite; margin:1rem 0; }
     @keyframes pulse { 0%,100% {transform:scale(1);} 50% {transform:scale(1.2);} }
 
+    /* QUIZ */
     .quiz { margin:2rem 0; }
     .quiz button { margin:0.5rem; background:#c3b1e1; }
     .quiz button.correct { background:#a0e7a0; }
     #finalYes { background:#a0e7a0; }
-    #finalNo  { background:#ff9999; }
+    #finalNo { background:#ff9999; }
 
-    .confetti { position:absolute; width:10px; height:10px; background:#ff6b9d; animation:fall 3s linear infinite; }
+    /* CONFETTI */
+    .confetti {
+      position:absolute; width:10px; height:10px; background:#ff6b9d;
+      animation:fall 3s linear infinite;
+    }
     @keyframes fall { to { transform:translateY(100vh) rotate(360deg); opacity:0; } }
   </style>
 </head>
 <body>
-<!-- Page 1 -->
+
+<!-- PAGE 1 -->
 <div id="page1" class="page visible" style="
   background-image: url('Background.jpg');
   background-size: cover;
@@ -62,128 +88,127 @@
   align-items: center;
 ">
 
- <!-- FLOATING + SPARKLING BUBBLE -->
-<div style="
-  position: absolute;
-  top: 25%;
-  left: 68%;
-  width: 200px;
-  padding: 14px 18px;
-  background: white;
-  border-radius: 35px;
-  box-shadow: 0 4px 12px rgba(255,107,157,0.25);
-  font-family: 'Pacifico', cursive;
-  font-size: 1.4rem;
-  color: #ff69b4;
-  -webkit-text-stroke: 0.6px white;
-  text-stroke: 0.6px white;
-  text-align: center;
-  z-index: 2;
-  animation: float 6s ease-in-out infinite;
-  cursor: pointer;
-  transition: transform 0.2s;
-  position: relative;
-  overflow: visible;
-" 
-onmouseover="sparkle(this)" 
-onmouseout="clearSparkles(this)">
-  Hi Sweetie!
-</div>
+  <!-- FLOATING + SPARKLING BUBBLE -->
+  <div style="
+    position: absolute;
+    top: 25%;
+    left: 68%;
+    width: 200px;
+    padding: 14px 18px;
+    background: white;
+    border-radius: 35px;
+    box-shadow: 0 4px 12px rgba(255,107,157,0.25);
+    font-family: 'Pacifico', cursive;
+    font-size: 1.4rem;
+    color: #ff69b4;
+    -webkit-text-stroke: 0.6px white;
+    text-stroke: 0.6px white;
+    text-align: center;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+  "
+  onmouseover="sparkle(this)"
+  onmouseout="clearSparkles(this)">
+    Hi Sweetie!
+  </div>
 
   <!-- PARAGRAPH -->
- <p style="
-  background: rgba(255,255,255,0.8);
-  padding: 1rem;
-  border-radius: 15px;
-  max-width: 600px;
-  margin: 6rem auto 1rem;   /* NEW: pushes it down */
-  text-align: center;
-">
-  I made this site because it felt like the most <em>'Jude'</em> way to go about it
-</p>
+  <p style="
+    background: rgba(255,255,255,0.8);
+    padding: 1rem;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 6rem auto 1rem;
+    text-align: center;
+  ">
+    I made this site because it felt like the most <em>'Jude'</em> way to go about it
+  </p>
 
   <!-- BUTTON -->
   <button onclick="nextPage(0)">Turn the page</button>
 </div>
 
-  <!-- Page 2 -->
-  <div id="page2" class="page hidden">
-    <img src="FirstGIF.gif" alt="Cute cat" style="width: 150px; height: 150px; display: block; margin: 1rem auto;">
-    <h1>Remember when...</h1>
-    <p>We laughed until [funny shared memory]? Or when you [cute thing she did]? Every moment with you feels like magic.</p>
-    <button onclick="nextPage(1)">Keep going →</button>
-  </div>
+<!-- PAGE 2 -->
+<div id="page2" class="page hidden">
+  <img src="FirstGIF.gif" alt="Cute cat" style="width: 150px; height: 150px; display: block; margin: 1rem auto;">
+  <h1>Remember when...</h1>
+  <p>We laughed until [funny shared memory]? Or when you [cute thing she did]? Every moment with you feels like magic.</p>
+  <button onclick="nextPage(1)">Keep going</button>
+</div>
 
-  <!-- Page 3 – Quiz -->
-  <div id="page3" class="page hidden">
-    <h1>Quick Quiz!</h1>
-    <p>What's my favorite thing about you?</p>
-    <div class="quiz">
-      <button onclick="wrong()">Your coding skills</button>
-      <button onclick="wrong()">Your memes</button>
-      <button onclick="correct()">Everything 💕</button>
-    </div>
-    <p id="quizResult" style="margin-top:1rem; min-height:1.5rem;"></p>
-    <button id="quizNext" style="display:none;" onclick="nextPage(2)">Next →</button>
+<!-- PAGE 3 – QUIZ -->
+<div id="page3" class="page hidden">
+  <h1>Quick Quiz!</h1>
+  <p>What's my favorite thing about you?</p>
+  <div class="quiz">
+    <button onclick="wrong()">Your coding skills</button>
+    <button onclick="wrong()">Your memes</button>
+    <button onclick="correct()">Everything</button>
   </div>
+  <p id="quizResult" style="margin-top:1rem; min-height:1.5rem;"></p>
+  <button id="quizNext" style="display:none;" onclick="nextPage(2)">Next</button>
+</div>
 
-  <!-- Page 4 – Question -->
-  <div id="page4" class="page hidden">
-    <div class="heart">💘</div>
-    <h1>So... Cathy,</h1>
-    <p>Will you make my heart officially yours?</p>
-    <button id="finalYes" onclick="sayYes()">YES! 🥰</button>
-    <button id="finalNo"  onclick="sayNo()">no way 😜</button>
-  </div>
+<!-- PAGE 4 – QUESTION -->
+<div id="page4" class="page hidden">
+  <div class="heart">Heart</div>
+  <h1>So... Cathy,</h1>
+  <p>Will you make my heart officially yours?</p>
+  <button id="finalYes" onclick="sayYes()">YES!</button>
+  <button id="finalNo" onclick="sayNo()">no way</button>
+</div>
 
-  <!-- Page 5 – YES! -->
-  <div id="page5" class="page hidden">
-    <h1>YAY!!! 🎉</h1>
-    <p>I promise late-night talks, ugly selfies, and all the hugs. Can't wait for our first official date. Text me “🍓” when you see this.</p>
-    <div id="confettiContainer"></div>
-  </div>
+<!-- PAGE 5 – YES! -->
+<div id="page5" class="page hidden">
+  <h1>YAY!!!</h1>
+  <p>I promise late-night talks, ugly selfies, and all the hugs. Can't wait for our first official date. Text me “Strawberry” when you see this.</p>
+  <div id="confettiContainer"></div>
+</div>
 
-  <!-- Page 6 – Secret "no" page -->
-  <div id="page6" class="page hidden">
-    <h1>Wait... try again 😉</h1>
-    <p>The only right answer is hidden in your heart.</p>
-    <button onclick="backToQuestion()">Go back</button>
-  </div>
+<!-- PAGE 6 – SECRET NO -->
+<div id="page6" class="page hidden">
+  <h1>Wait... try again</h1>
+  <p>The only right answer is hidden in your heart.</p>
+  <button onclick="backToQuestion()">Go back</button>
+</div>
 
 <script>
   const pages = document.querySelectorAll('.page');
 
-  // n = index of CURRENT page (0-based)
   function nextPage(n) {
     pages[n].classList.remove('visible');
     pages[n].classList.add('hidden');
-
     const next = pages[n+1];
     next.classList.remove('hidden');
-    // tiny timeout so the browser registers the display change before sliding
     setTimeout(() => next.classList.add('visible'), 50);
   }
 
   function correct() {
-    document.getElementById('quizResult').innerHTML = '🎯 Exactly! <br>You know me too well.';
+    document.getElementById('quizResult').innerHTML = 'Exactly! <br>You know me too well.';
     document.getElementById('quizNext').style.display = 'block';
     setTimeout(() => nextPage(2), 2000);
   }
+
   function wrong() {
-    document.getElementById('quizResult').textContent = 'Nice try, but nope! 😋';
+    document.getElementById('quizResult').textContent = 'Nice try, but nope!';
   }
 
   function sayYes() {
-    nextPage(3);               // from page4 (index 3) → page5 (index 4)
+    nextPage(3);
     setTimeout(createConfetti, 600);
   }
+
   function sayNo() {
-    nextPage(3);               // jump to secret page6 (index 5)
+    nextPage(3);
     setTimeout(() => {
       pages[5].classList.remove('hidden');
       setTimeout(() => pages[5].classList.add('visible'), 50);
     }, 50);
   }
+
   function backToQuestion() {
     pages[5].classList.remove('visible');
     pages[5].classList.add('hidden');
@@ -191,7 +216,7 @@ onmouseout="clearSparkles(this)">
     setTimeout(() => pages[3].classList.add('visible'), 50);
   }
 
-   function createConfetti() {
+  function createConfetti() {
     const container = document.getElementById('confettiContainer');
     for(let i=0;i<120;i++){
       const c = document.createElement('div');
@@ -203,12 +228,12 @@ onmouseout="clearSparkles(this)">
     }
   }
 
-  // SPARKLE CODE — ADD THIS HERE
+  // SPARKLE ON HOVER
   function sparkle(element) {
     clearSparkles(element);
     for (let i = 0; i < 6; i++) {
       const s = document.createElement('div');
-      s.textContent = 'Sparkles';
+      s.textContent = 'Sparkles';  // SPARKLE EMOJI
       s.style.position = 'absolute';
       s.style.fontSize = '1.2rem';
       s.style.pointerEvents = 'none';
@@ -230,7 +255,7 @@ onmouseout="clearSparkles(this)">
     element.querySelectorAll('div').forEach(s => s.remove());
   }
 
-  // Add sparkle animation
+  // Inject sparkle animation
   const style = document.createElement('style');
   style.textContent = `
     @keyframes sparklePop {
@@ -240,5 +265,6 @@ onmouseout="clearSparkles(this)">
   `;
   document.head.appendChild(style);
 </script>
+
 </body>
 </html>
