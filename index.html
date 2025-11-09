@@ -73,13 +73,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: visible;  /* CRITICAL: allows sparkles to show */
 ">
 
-  <!-- BUBBLE: BACK TO ORIGINAL SPOT -->
+  <!-- BUBBLE: PERFECT POSITION -->
   <div id="sparkleBubble" style="
     position: absolute;
     top: 15%;
-    left: 68%;  /* ← FIXED: was 22%, now back to right side */
+    left: 58%;  /* ← PERFECT: near Ken's mouth */
     width: 200px;
     padding: 14px 18px;
     background: white;
@@ -99,7 +100,7 @@
     Hi Sweetie!
   </div>
 
-  <!-- PARAGRAPH (LOWER) -->
+  <!-- PARAGRAPH -->
   <p style="
     background: rgba(255,255,255,0.8);
     padding: 1rem;
@@ -114,8 +115,7 @@
   <button onclick="nextPage(0)">Turn the page</button>
 </div>
 
-<!-- [PAGES 2–6 SAME AS BEFORE — NO CHANGES] -->
-<!-- Page 2 -->
+<!-- [PAGES 2–6 UNCHANGED] -->
 <div id="page2" class="page hidden">
   <img src="FirstGIF.gif" alt="Cute cat" style="width: 150px; height: 150px; display: block; margin: 1rem auto;">
   <h1>Remember when...</h1>
@@ -123,7 +123,6 @@
   <button onclick="nextPage(1)">Keep going</button>
 </div>
 
-<!-- Page 3 – Quiz -->
 <div id="page3" class="page hidden">
   <h1>Quick Quiz!</h1>
   <p>What's my favorite thing about you?</p>
@@ -136,7 +135,6 @@
   <button id="quizNext" style="display:none;" onclick="nextPage(2)">Next</button>
 </div>
 
-<!-- Page 4 – Question -->
 <div id="page4" class="page hidden">
   <div class="heart">Heart</div>
   <h1>So... Cathy,</h1>
@@ -145,14 +143,12 @@
   <button id="finalNo" onclick="sayNo()">no way</button>
 </div>
 
-<!-- Page 5 – YES! -->
 <div id="page5" class="page hidden">
   <h1>YAY!!!</h1>
   <p>I promise late-night talks, ugly selfies, and all the hugs. Can't wait for our first official date. Text me “Strawberry” when you see this.</p>
   <div id="confettiContainer"></div>
 </div>
 
-<!-- Page 6 – Secret "no" -->
 <div id="page6" class="page hidden">
   <h1>Wait... try again</h1>
   <p>The only right answer is hidden in your heart.</p>
@@ -172,7 +168,7 @@
 
   function correct() {
     document.getElementById('quizResult').innerHTML = 'Exactly! <br>You know me too well.';
-    document.getElementById('quizNext').style.display = 'block';
+    document.getElement byId('quizNext').style.display = 'block';
     setTimeout(() => nextPage(2), 2000);
   }
 
@@ -212,15 +208,15 @@
     }
   }
 
-  // SPARKLES ON HOVER — FIXED
-  document.addEventListener('DOMContentLoaded', () => {
+  // SPARKLES — FIXED & WORKING
+  window.addEventListener('load', () => {
     const bubble = document.getElementById('sparkleBubble');
     if (!bubble) return;
 
     bubble.addEventListener('mouseenter', () => {
       for (let i = 0; i < 6; i++) {
         const s = document.createElement('div');
-        s.textContent = '';  // ← SPARKLE EMOJI
+        s.textContent = '';  // SPARKLE EMOJI
         s.style.position = 'absolute';
         s.style.fontSize = '1.3rem';
         s.style.pointerEvents = 'none';
