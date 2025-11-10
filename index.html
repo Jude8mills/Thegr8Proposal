@@ -233,11 +233,11 @@ button:hover { transform:scale(1.05); }
 <div id="page3" class="page hidden" style="background: #fff8f8; overflow: visible;">
   <h1>Quick Quiz!</h1>
   <p>What's my favorite thing about you?</p>
-  <div class="quiz">
-    <button onclick="wrong()">Your eyes</button>
-    <button onclick="wrong()">Your smile</button>
-    <button onclick="correct()">Everything</button>
-  </div>
+<div class="quiz">
+  <button onclick="wrong('Your coding skills')">Your eyes</button>
+  <button onclick="wrong('Your memes')">Your smile</button>
+  <button onclick="correct()">Everything</button>
+</div>
   <p id="quizResult" style="margin-top:1rem; min-height:1.5rem;"></p>
   <button id="quizNext" style="display:none;" onclick="nextPage(2)">Next</button>
 </div>
@@ -271,14 +271,19 @@ button:hover { transform:scale(1.05); }
   }
 
   function correct() {
-    document.getElementById('quizResult').innerHTML = 'Exactly! <br>You know me too well.';
+    document.getElementById('quizResult').innerHTML = 'I am in love with you, the whole concept of you, your whole make-up, bological to atomic, even to the most minute detail..';
     document.getElementById('quizNext').style.display = 'block';
     setTimeout(() => nextPage(2), 2000);
   }
 
-  function wrong() {
-    document.getElementById('quizResult').textContent = 'Nice try, but nope!';
+function wrong(buttonText) {
+  const result = document.getElementById('quizResult');
+  if (buttonText === "Your eyes") {
+    result.textContent = "I could look into them forever ";
+  } else if (buttonText === "Your Smile") {
+    result.textContent = "Immediately makes the world a better place for me ";
   }
+}
 
   function sayYes() {
     nextPage(3);
