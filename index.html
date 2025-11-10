@@ -83,8 +83,9 @@ button:hover { transform:scale(1.05); }
 }
 .sticky-note.image-note img {
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 6px;
+  background: transparent;
 }
 .center-content {
   position: relative;
@@ -215,9 +216,9 @@ button:hover { transform:scale(1.05); }
     Being in love with you is my favourite song
   </div>
   <!-- IMAGES -->
-  <div class="sticky-note image-note" style="top: 18%; left: 4%; transform: rotate(-14deg); --r: -14deg;">
-<img src="postit-drawing.png?v=4" alt="Your new picture">
-  </div>
+<div class="sticky-note image-note" style="top: 18%; left: 4%; transform: rotate(-14deg); --r: -14deg;">
+  <img src="postit-drawing.png?v=5" alt="Our moment">
+</div>
   <div class="sticky-note image-note" style="top: 20%; right: 5%; transform: rotate(12deg); --r: 12deg;">
     <img src="postit-photo1.png" alt="Photo 1">
   </div>
@@ -233,8 +234,8 @@ button:hover { transform:scale(1.05); }
   <h1>Quick Quiz!</h1>
   <p>What's my favorite thing about you?</p>
   <div class="quiz">
-    <button onclick="wrong()">Your coding skills</button>
-    <button onclick="wrong()">Your memes</button>
+    <button onclick="wrong()">Your eyes</button>
+    <button onclick="wrong()">Your smile</button>
     <button onclick="correct()">Everything</button>
   </div>
   <p id="quizResult" style="margin-top:1rem; min-height:1.5rem;"></p>
