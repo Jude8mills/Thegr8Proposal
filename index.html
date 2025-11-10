@@ -90,6 +90,15 @@ button:hover { transform:scale(1.05); }
   position: relative;
   z-index: 100;
 }
+   /* DRAGGABLE POST-ITS */
+.sticky-note {
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.sticky-note:active {
+  cursor: grabbing;
+}
 </style>
 </head>
 <body>
@@ -156,7 +165,7 @@ button:hover { transform:scale(1.05); }
   </div>
 </div>
 
-<!-- PAGE 2 — NO display:block, uses flex + .center-content -->
+<!-- PAGE 2 — DRAGGABLE NOTES + INSTRUCTION -->
 <div id="page2" class="page hidden" style="background: #fff8f8; overflow: visible;">
   <div class="center-content">
     <img src="FirstGIF.gif" alt="Cute cat" style="
@@ -171,8 +180,12 @@ button:hover { transform:scale(1.05); }
     ">
       You are the best thing to ever happen to me.
     </p>
+    <p style="font-size: 1rem; color: #ff6b9d; margin: 1rem 0; font-weight: bold;">
+      Drag the notes around!
+    </p>
     <button onclick="nextPage(1)">Keep going</button>
   </div>
+
   <!-- TEXT POST-ITS -->
   <div class="sticky-note text-note" style="top: 2%; left: 1%; transform: rotate(-20deg); --r: -20deg;">
     I was hoping to see you in December so that i'd ask in-person, but yk, shit happened, so i have to make due.
@@ -192,6 +205,7 @@ button:hover { transform:scale(1.05); }
   <div class="sticky-note text-note" style="top: 38%; right: -1%; transform: rotate(17deg); --r: 17deg; width: 150px; height: 150px;">
     When you smile at me like that
   </div>
+
   <!-- IMAGES -->
   <div class="sticky-note image-note" style="top: 18%; left: 4%; transform: rotate(-14deg); --r: -14deg;">
     <img src="postit-drawing.png" alt="Your drawing" style="object-fit: contain;">
@@ -281,6 +295,52 @@ button:hover { transform:scale(1.05); }
       container.appendChild(c);
     }
   }
+  <script>
+// DRAG FUNCTIONALITY
+document.querySelectorAll('.sticky-note').forEach(note => {
+  let isDragging = false;
+  let startX, startY, initialLeft, initialTop;
+
+  const startDrag = (e) => {
+    isDragging = true;
+    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+    startX = clientX;
+    startY = clientY;
+    initialLeft = note.offsetLeft;
+    initialTop = note.offsetTop;
+    note.style.transition = 'none';
+  };
+
+  const drag = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+    const deltaX = clientX - startX;
+    const deltaY = clientY - startY;
+    note.style.left = (initialLeft + deltaX) + 'px';
+    note.style.top = (initialTop + deltaY) + 'px';
+  };
+
+  const stopDrag = () => {
+    if (isDragging) {
+      isDragging = false;
+      note.style.transition = '';
+    }
+  };
+
+  // Mouse
+  note.addEventListener('mousedown', startDrag);
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', stopDrag);
+
+  // Touch
+  note.addEventListener('touchstart', startDrag);
+  document.addEventListener('touchmove', drag);
+  document.addEventListener('touchend', stopDrag);
+});
+</script>
 </script>
 </body>
 </html>
