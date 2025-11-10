@@ -174,22 +174,20 @@
     <button onclick="nextPage(0)">uh-huh...</button>
   </div>
 </div>
-<!-- PAGE 2 — 10 POST-ITS: NO OVERLAP, SPREAD OUT -->
+<!-- PAGE 2 — FIXED: NO BLANK, NO OVERLAP -->
 <div id="page2" class="page hidden" style="
   background: #fff8f8;
   overflow: visible;
-  position: relative;
 ">
   <!-- CAT GIF -->
   <img src="FirstGIF.gif" alt="Cute cat" style="
     width: 150px; height: 150px; border-radius: 50%;
     box-shadow: 0 8px 20px rgba(255,107,157,0.3); z-index: 10;
-    position: relative;
   ">
 
-  <h1 style="margin: 1.5rem 0; color: #ff6b9d; z-index: 10; position: relative;">Cathy</h1>
+  <h1 style="margin: 1.5rem 0; color: #ff6b9d; z-index: 10;">Cathy</h1>
 
-  <!-- TEXT POST-ITS (FAR FROM CENTER) -->
+  <!-- TEXT POST-ITS (SPREAD TO EDGES) -->
   <div class="sticky-note" style="top: 5%; left: 2%; transform: rotate(-18deg); --r: -18deg; width: 160px; height: 160px;">
     I was hoping to see you in December so that i'd ask in-person, but yk, shit happened, so i have to make due.
   </div>
@@ -209,22 +207,22 @@
     When you smile at me like that
   </div>
 
-  <!-- YOUR DRAWING (TOP-LEFT) -->
+  <!-- YOUR DRAWING -->
   <div class="sticky-note image-note" style="top: 20%; left: 5%; transform: rotate(-12deg); --r: -12deg;">
     <img src="postit-drawing.png" alt="Your drawing" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
   </div>
 
-  <!-- PHOTO 1 (TOP-RIGHT) -->
+  <!-- PHOTO 1 -->
   <div class="sticky-note image-note" style="top: 22%; right: 6%; transform: rotate(10deg); --r: 10deg;">
     <img src="postit-photo1.png" alt="Photo 1" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
   </div>
 
-  <!-- PHOTO 2 (BOTTOM-LEFT) -->
+  <!-- PHOTO 2 -->
   <div class="sticky-note image-note" style="bottom: 18%; left: 3%; transform: rotate(-14deg); --r: -14deg;">
     <img src="postit-photo2.png" alt="Photo 2" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
   </div>
 
-  <!-- PHOTO 3 (BOTTOM-RIGHT) -->
+  <!-- PHOTO 3 -->
   <div class="sticky-note image-note" style="bottom: 20%; right: 4%; transform: rotate(12deg); --r: 12deg;">
     <img src="postit-photo3.png" alt="Photo 3" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
   </div>
@@ -234,14 +232,13 @@
     margin: 1.5rem 0; max-width: 600px;
     background: rgba(255,255,255,0.9); padding: 1rem;
     border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    z-index: 10; position: relative;
+    z-index: 10;
   ">
     You are the best thing to ever happen to me.
   </p>
 
-  <button onclick="nextPage(1)" style="z-index: 10; position: relative;">Keep going</button>
+  <button onclick="nextPage(1)" style="z-index: 10;">Keep going</button>
 </div>
-
 
 <!-- PAGE 3 -->
 <div id="page3" class="page hidden" style="background: #fff8f8; overflow: visible;">
