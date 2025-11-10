@@ -241,6 +241,57 @@ button:hover { transform:scale(1.05); }
   <p id="quizResult" style="margin-top:1rem; min-height:1.5rem; font-weight: bold; color: #ff6b9d;"></p>
   <button id="quizNext" style="display:none; margin-top: 1.5rem;" onclick="nextPage(2)">Next</button>
 </div>
+  <!-- PAGE 3.5 — A LETTER TO CATHY (NEW!) -->
+<div id="pageLetter" class="page hidden" style="
+  background: #fdfaf7;
+  overflow: visible;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+">
+  <div style="
+    width: 100%;
+    max-width: 700px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%2230%22><rect width=%22100%22 height=%2230%22 fill=%22%23fdfaf7%22/><line x1=%220%22 y1=%2230%22 x2=%22100%22 y2=%2230%22 stroke=%22%23ddd%22 stroke-width=%221%22/></svg>') repeat-y;
+    background-size: 100% 30px;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.25rem;
+    line-height: 2.2;
+    color: #5d4037;
+    text-align: left;
+  ">
+    Cathy,<br><br>
+    
+    Every day with you feels like the first page of a story I never want to end. You laugh at my terrible jokes, you send me voice notes that make my heart skip, and somehow, you make even the quiet moments feel like home.<br><br>
+    
+    I don’t need grand gestures. I just need you — your 2am thoughts, your sleepy voice, the way you say “Jude” like it’s a secret.<br><br>
+    
+    This isn’t just a question. It’s a promise: I choose you. Every day. Every version. Every mood.<br><br>
+    
+    So here’s my heart, wide open, asking...<br><br>
+    
+    <div style="text-align: right; font-style: italic; color: #ff6b9d;">
+      — Jude
+    </div>
+  </div>
+
+  <button onclick="nextPage(4)" style="
+    margin-top: 2.5rem;
+    padding: 1rem  2.5rem;
+    background: #ff6b9d;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255,107,157,.3);
+  ">I’m ready...</button>
+</div>
 <!-- [PAGES 4–6 UNCHANGED] -->
 <div id="page4" class="page hidden">
   <div class="heart">Heart</div>
@@ -282,9 +333,9 @@ function showAnswer(answer, buttonId) {
   btn.style.opacity = '0.6';
 
   // Show message
-  if (answer === "Your coding skills") {
+  if (answer === "Your Eyes") {
     result.textContent = "I could look into them forever ";
-  } else if (answer === "Your memes") {
+  } else if (answer === "Your Smile") {
     result.textContent = "Immediately makes the world a better place for me ";
   } else if (answer === "Everything") {
     result.innerHTML = "I am in love with you, the whole concept of you, your whole make-up, biological to atomic, even to the most minute detail.";
@@ -294,23 +345,53 @@ function showAnswer(answer, buttonId) {
   clickedButtons.add(buttonId);
 
   // If all 3 clicked → show Next
-  if (clickedButtons.size === 3) {
-    nextBtn.style.display = 'block';
-  }
-}
-  
-  function sayYes() {
-    nextPage(3);
-    setTimeout(createConfetti, 600);
+let clickedButtons = new Set();
+
+function showAnswer(answer, buttonId) {
+  const result = document.getElementById('quizResult');
+  const btn = document.getElementById(buttonId);
+  const nextBtn = document.getElementById('quizNext');
+
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+
+  if (answer === "Your Eyes") {
+    result.textContent = "I could look into them forever ";
+  } else if (answer === "Your Smile") {
+    result.textContent = "Immediately makes the world a better place for me ";
+  } else if (answer === "Everything") {
+    result.innerHTML = "I am in love with you, the whole concept of you, your whole make-up, biological to atomic, even to the most minute detail..";
   }
 
-  function sayNo() {
-    nextPage(3);
-    setTimeout(() => {
-      pages[5].classList.remove('hidden');
-      setTimeout(() => pages[5].classList.add('visible'), 50);
-    }, 50);
+  clickedButtons.add(buttonId);
+
+  if (clickedButtons.size === 3) {
+    nextBtn.style.display = 'block';
+    nextBtn.onclick = goToLetter; // Go to letter page
   }
+}
+
+function goToLetter() {
+  const pages = document.querySelectorAll('.page');
+  pages[2].classList.remove('visible'); // Hide quiz
+  pages[2].classList.add('hidden');
+  const letterPage = document.getElementById('pageLetter');
+  letterPage.classList.remove('hidden');
+  setTimeout(() => letterPage.classList.add('visible'), 50);
+}
+  
+function sayYes() {
+  nextPage(5);
+  setTimeout(createConfetti, 600);
+}
+  function sayNo() {
+  nextPage(5);
+  setTimeout(() => {
+    pages[6].classList.remove('hidden');  // No page is now index 6
+    setTimeout(() => pages[6].classList.add('visible'), 50);
+  }, 50);
+}
 
   function backToQuestion() {
     pages[5].classList.remove('visible');
