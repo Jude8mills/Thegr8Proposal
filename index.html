@@ -397,11 +397,12 @@ button:hover { transform:scale(1.05); }
 
   // === BACK TO FINAL QUESTION ===
   function backToQuestion() {
-  // Hide page6, show page4
-  pages[6].classList.remove('visible');
-  pages[6].classList.add('hidden');
-  pages[4].classList.remove('hidden');
-  setTimeout(() => pages[4].classList.add('visible'), 50);
+  const current = document.getElementById('page6');
+  const question = document.getElementById('page4');
+  current.classList.remove('visible');
+  current.classList.add('hidden');
+  question.classList.remove('hidden');
+  setTimeout(() => question.classList.add('visible'), 50);
 }
   // === CONFETTI ===
   function createConfetti() {
