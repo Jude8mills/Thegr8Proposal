@@ -20,14 +20,26 @@
 body { background:#ffeef8; height:100vh; overflow:hidden; }
 /* PAGE LAYOUT — RESTORED FLEX */
 .page {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 2rem;
-  transition: transform .6s ease-in-out;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  opacity: 0;
   transform: translateX(100%);
+  transition: all .6s ease-in-out;
 }
-.page.visible { transform: translateX(0); }
-.page.hidden { display: none; }
+.page.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.page.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 h1 { font-size:2.5rem; color:#ff6b9d; margin-bottom:1rem; }
 p { font-size:1.2rem; color:#444; max-width:600px; line-height:1.6; margin: 1.5rem auto; }
 button {
@@ -37,7 +49,6 @@ button {
 }
 button:hover { transform:scale(1.05); }
 .heart { font-size:5rem; animation:pulse 1.5s infinite; margin:1rem 0; }
-@keyframes pulse { 0%,100% {transform:scale(1);} 50% {transform:scale(1.2);} }
 .quiz { margin:2rem 0; }
 .quiz button { margin:0.5rem; background:#c3b1e1; }
 .quiz button.correct { background:#a0e7a0; }
@@ -169,7 +180,7 @@ button:hover { transform:scale(1.05); }
 ">
   I made this site for you, because it felt like the most Jude way to go about it.
 </p>
-    <button onclick="nextPage(0)">uh-huh...</button>
+    <button id="next1">uh-huh...</button>
   </div>
 </div>
 
@@ -191,7 +202,7 @@ button:hover { transform:scale(1.05); }
     <p style="font-size: 1rem; color: #ff6b9d; margin: 1rem 0; font-weight: bold;">
       Drag the notes around!
     </p>
-    <button onclick="nextPage(1)">Keep going</button>
+    <button id="next2">Keep going</button>
   </div>
 
   <!-- TEXT POST-ITS -->
@@ -307,8 +318,8 @@ button:hover { transform:scale(1.05); }
   <div class="heart">&#9829;</div>
   <h1>Cathy,</h1>
   <p> to comfortable silences, insulting people together forever,  and kisses with cold lips!, May i be your Boyfriend?</p>
-  <button id="finalYes" onclick="sayYes()">YES!</button>
-  <button id="finalNo" onclick="sayNo()">no way</button>
+  <button id="finalYes">YES!</button>
+  <button id="finalNo">no way</button>
 </div>
 <div id="page5" class="page hidden">
   <h1>YAY!!!</h1>
@@ -318,11 +329,20 @@ button:hover { transform:scale(1.05); }
 <div id="page6" class="page hidden">
   <h1>shwɛ,</h1>
   <p> you're leaving me for who :(</p>
-  <button onclick="backToQuestion()">Go back</button>
+ <button id="backBtn">Go back</button>
 </div>
 
 <script>
   const pages = document.querySelectorAll('.page');
+
+  function goToPage(currentId, nextId) {
+  const current = document.getElementById(currentId);
+  const next = document.getElementById(nextId);
+  current.classList.remove('visible');
+  current.classList.add('hidden');
+  next.classList.remove('hidden');
+  setTimeout(() => next.classList.add('visible'), 50);
+}
 
   // === CORE PAGE TRANSITION FUNCTION ===
   function nextPage(currentIndex) {
@@ -385,37 +405,20 @@ button:hover { transform:scale(1.05); }
   }
 
   // === NO WAY → TRY AGAIN (CLEAN) ===
- function sayNo() {
-  const current = document.getElementById('page4');
-  const next = document.getElementById('page6');
-  current.classList.remove('visible');
-  current.classList.add('hidden');
-  next.classList.remove('hidden');
-  setTimeout(() => next.classList.add('visible'), 50);
-}
-
+function sayNo() { goToPage('page4', 'page6'); }
 
   // === BACK TO FINAL QUESTION ===
-  function backToQuestion() {
-  const current = document.getElementById('page6');
-  const question = document.getElementById('page4');
-  current.classList.remove('visible');
-  current.classList.add('hidden');
-  question.classList.remove('hidden');
-  setTimeout(() => question.classList.add('visible'), 50);
-}
+ function backToQuestion() { goToPage('page6', 'page4'); }
+
   // === CONFETTI ===
-  function createConfetti() {
-    const container = document.getElementById('confettiContainer');
-    for (let i = 0; i < 120; i++) {
-      const c = document.createElement('div');
-      c.className = 'confetti';
-      c.style.left = Math.random() * 100 + 'vw';
-      c.style.background = ['#ff6b9d', '#a0e7a0', '#c3b1e1'][Math.floor(Math.random() * 3)];
-      c.style.animationDelay = Math.random() * 3 + 's';
-      container.appendChild(c);
-    }
-  }
+ function createConfetti() {
+  confetti({
+    particleCount: 200,
+    spread: 80,
+    origin: { y: 0.6 },
+    colors: ['#ff6b9d', '#a0e7a0', '#c3b1e1']
+  });
+}
 
   // === CATHY IN GOLDEN STARS (ONLY) ===
   function addCathyStars() {
@@ -496,6 +499,13 @@ document.getElementById('letterNext').addEventListener('click', () => {
     }
   `;
   document.head.appendChild(style);
+  // Button event listeners
+document.getElementById('next1').addEventListener('click', () => nextPage(0));
+document.getElementById('next2').addEventListener('click', () => nextPage(1));
+document.getElementById('finalYes').addEventListener('click', sayYes);
+document.getElementById('finalNo').addEventListener('click', sayNo);
+document.getElementById('backBtn').addEventListener('click', backToQuestion);
+
 </script>
 </body>
 </html>
