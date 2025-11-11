@@ -102,6 +102,22 @@ button:hover { transform:scale(1.05); }
   position: relative;
   z-index: 100;
 }
+.heart {
+  font-size: 3.5rem;
+  color: #ff4d6d;
+  text-shadow: 0 0 12px #ff8fab, 0 0 24px #ffb3c6;
+  animation: floatHeart 3s ease-in-out infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes floatHeart {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+  }
+}
    /* DRAGGABLE POST-ITS */
 .sticky-note {
   cursor: grab;
@@ -312,13 +328,40 @@ button:hover { transform:scale(1.05); }
 </div>
 <!-- [PAGES 4–6 UNCHANGED] -->
 <div id="page4" class="page hidden">
-  <div class="heart">&#9829;</div>
-  <h1>Cathy,</h1>
- <p style="font-family: 'Times New Roman', Times, serif;">
-  to comfortable silences, insulting people together forever, and kisses with cold lips! May I be your Boyfriend?
-</p>
-  <button id="finalYes">YES!</button>
-  <button id="finalNo">no way</button>
+  <div class="heart" style="font-size: 3.5rem; margin: 1rem 0;">♥</div>
+  <h1 style="font-family: 'Pacifico', cursive; font-size: 2.8rem; color: #ff69b4; margin: 0.5rem 0;">
+    Cathy,
+  </h1>
+  <p style="
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.4rem;
+    line-height: 2.1;
+    color: #444;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.2);
+    text-align: center;
+  ">
+    to comfortable silences,<br>
+    insulting people together forever,<br>
+    and kisses with cold lips!<br><br>
+    <strong>May I be your Boyfriend?</strong>
+  </p>
+  <div style="margin-top: 2rem;">
+    <button id="finalYes" style="
+      background: #a0e7a0; color: white; padding: 1rem 2.5rem;
+      font-size: 1.3rem; border-radius: 50px; margin: 0 1rem;
+      box-shadow: 0 4px 15px rgba(160, 231, 160, 0.4);
+    ">YES!</button>
+    <button id="finalNo" style="
+      background: #ff9999; color: white; padding: 1rem 2.5rem;
+      font-size: 1.3rem; border-radius: 50px; margin: 0 1rem;
+      box-shadow: 0 4px 15px rgba(255, 153, 153, 0.4);
+    ">no way</button>
+  </div>
 </div>
 <div id="page5" class="page hidden">
   <h1>YAY!!!</h1>
