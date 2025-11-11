@@ -326,13 +326,18 @@ button:hover { transform:scale(1.05); }
   const pages = document.querySelectorAll('.page');
 
   // === CORE PAGE TRANSITION FUNCTION ===
-  function nextPage(n) {
-    pages[n].classList.remove('visible');
-    pages[n].classList.add('hidden');
-    const next = pages[n + 1];
-    next.classList.remove('hidden');
-    setTimeout(() => next.classList.add('visible'), 50);
-  }
+  function nextPage(currentIndex) {
+  const current = pages[currentIndex];
+  const next = pages[currentIndex + 1];
+
+  // Hide current
+  current.classList.remove('visible');
+  current.classList.add('hidden');
+
+  // Show next
+  next.classList.remove('hidden');
+  setTimeout(() => next.classList.add('visible'), 50);
+}
 
   // === QUIZ LOGIC ===
   let clickedButtons = new Set();
