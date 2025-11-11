@@ -100,6 +100,10 @@ button:hover { transform:scale(1.05); }
 .sticky-note:active {
   cursor: grabbing;
 }
+   @keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
 </style>
 </head>
 <body>
@@ -241,15 +245,15 @@ button:hover { transform:scale(1.05); }
   <p id="quizResult" style="margin-top:1rem; min-height:1.5rem; font-weight: bold; color: #ff6b9d;"></p>
  <button id="quizNext" style="display:none; margin-top: 1.5rem;">Next</button>
 </div>
-  <!-- PAGE 3.5 — A LETTER TO CATHY (NEW!) -->
+ <!-- PAGE 3.5 — LETTER WITH SCROLL -->
 <div id="pageLetter" class="page hidden" style="
   background: #fdfaf7;
-  overflow: visible;
+  overflow-y: auto;
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  height: 100vh;
 ">
   <div style="
     width: 100%;
@@ -264,33 +268,38 @@ button:hover { transform:scale(1.05); }
     line-height: 2.2;
     color: #5d4037;
     text-align: left;
+    min-height: 120vh;
+    margin-bottom: 3rem;
   ">
     Cathy,<br><br>
-    
+
     Every day with you feels like the first page of a story I never want to end. You laugh at my terrible jokes, you send me voice notes that make my heart skip, and somehow, you make even the quiet moments feel like home.<br><br>
-    
+
     I don’t need grand gestures. I just need you — your 2am thoughts, your sleepy voice, the way you say “Jude” like it’s a secret.<br><br>
-    
+
     This isn’t just a question. It’s a promise: I choose you. Every day. Every version. Every mood.<br><br>
-    
+
     So here’s my heart, wide open, asking...<br><br>
-    
+
     <div style="text-align: right; font-style: italic; color: #ff6b9d;">
       — Jude
     </div>
   </div>
 
+  <!-- BUTTON AT BOTTOM — ALWAYS VISIBLE AFTER SCROLL -->
   <button onclick="nextPage(4)" style="
-    margin-top: 2.5rem;
-    padding: 1rem  2.5rem;
+    margin: 2rem auto 4rem;
+    padding: 1.2rem 3rem;
     background: #ff6b9d;
     color: white;
     border: none;
     border-radius: 50px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255,107,157,.3);
+    box-shadow: 0 6px 20px rgba(255,107,157,.4);
+    animation: pulse 2s infinite;
   ">I’m ready...</button>
+</div>
 </div>
 <!-- [PAGES 4–6 UNCHANGED] -->
 <div id="page4" class="page hidden">
