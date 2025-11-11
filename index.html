@@ -246,15 +246,6 @@ button:hover { transform:scale(1.05); }
   <p id="quizResult" style="margin-top:1rem; min-height:1.5rem; font-weight: bold; color: #ff6b9d;"></p>
  <button id="quizNext" style="display:none; margin-top: 1.5rem;">Next</button>
 </div>
-
-<!-- [PAGES 4–6 UNCHANGED] -->
-<div id="page4" class="page hidden">
-  <div class="heart">Heart</div>
-  <h1>So... Cathy,</h1>
-  <p>Will you make my heart officially yours?</p>
-  <button id="finalYes" onclick="sayYes()">YES!</button>
-  <button id="finalNo" onclick="sayNo()">no way</button>
-</div>
   <!-- PAGE 3.5 — LETTER WITH SCROLL (FIXED) -->
 <div id="pageLetter" class="page hidden" style="
   background: #fdfaf7;
@@ -299,7 +290,7 @@ button:hover { transform:scale(1.05); }
     </div>
   </div>
 
-  <button onclick="nextPage(4)" style="
+  <button onclick="nextPage(3)" style="
     margin: 2rem auto 6rem;
     padding: 1.2rem 3rem;
     background: #ff6b9d;
@@ -311,6 +302,14 @@ button:hover { transform:scale(1.05); }
     box-shadow: 0 6px 20px rgba(255,107,157,.4);
     animation: pulse 2s infinite;
   ">I’m ready...</button>
+</div>
+<!-- [PAGES 4–6 UNCHANGED] -->
+<div id="page4" class="page hidden">
+  <div class="heart">Heart</div>
+  <h1>So... Cathy,</h1>
+  <p>Will you make my heart officially yours?</p>
+  <button id="finalYes" onclick="sayYes()">YES!</button>
+  <button id="finalNo" onclick="sayNo()">no way</button>
 </div>
 <div id="page5" class="page hidden">
   <h1>YAY!!!</h1>
@@ -374,7 +373,7 @@ button:hover { transform:scale(1.05); }
 
   // === YES! → YAY!!! + CONFETTI + CATHY IN STARS ===
   function sayYes() {
-    nextPage(5); // Final Question → YES page
+    nextPage(4); // Final Question → YES page
     setTimeout(() => {
       createConfetti();
       addCathyStars(); // Only "C A T H Y" in stars
@@ -383,14 +382,17 @@ button:hover { transform:scale(1.05); }
 
   // === NO WAY → TRY AGAIN (CLEAN) ===
   function sayNo() {
-    nextPage(6); // Final Question → No page
+    nextPage(5); // Final Question → No page
   }
 
   // === BACK TO FINAL QUESTION ===
   function backToQuestion() {
-    nextPage(6); // No page → Final Question
-  }
-
+  // Hide page6, show page4
+  pages[6].classList.remove('visible');
+  pages[6].classList.add('hidden');
+  pages[4].classList.remove('hidden');
+  setTimeout(() => pages[4].classList.add('visible'), 50);
+}
   // === CONFETTI ===
   function createConfetti() {
     const container = document.getElementById('confettiContainer');
